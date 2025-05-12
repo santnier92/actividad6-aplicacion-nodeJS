@@ -1,6 +1,6 @@
 import React from "react";
 
-function HomePage(params:type) {
+function HomePage() {
   return(
     <div>HomePage</div>
   )
