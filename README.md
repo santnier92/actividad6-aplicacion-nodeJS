@@ -4,6 +4,7 @@ Aplicación de Autenticación con Next.js y MongoDB
 Hola, mi nombre es Santiago Nieto. Esta es la presentación de mi aplicación desarrollada con Next.js, encargada de gestionar la autenticación de usuarios conectándose a una base de datos en MongoDB Atlas. El proyecto fue desplegado en Vercel y contiene todo el backend necesario para el registro y login de personas.
 
 🧱 Estructura del Proyecto
+---
 Durante las primeras clases creamos la estructura base del proyecto y definimos las rutas principales:
 
 - /login: Página de autenticación de usuarios.
