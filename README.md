@@ -14,6 +14,7 @@ Durante las primeras clases creamos la estructura base del proyecto y definimos 
 - /api/hello: Ruta básica de prueba.
 
 📁 Archivos y Funcionalidades Clave
+---
 1. mongodb.ts
 Este archivo se encarga de manejar la conexión a MongoDB.
 
@@ -48,6 +49,7 @@ Contiene la lógica para el registro de usuarios:
 - Se responde con código HTTP 400 en caso de error de validación.
 
 🚀 Despliegue
+---
 La aplicación fue desplegada exitosamente en Vercel, conectada a MongoDB Atlas. Puedes acceder al proyecto en los siguientes enlaces:
 
 - 🔗 GitHub: Repositorio del proyecto
@@ -55,6 +57,7 @@ La aplicación fue desplegada exitosamente en Vercel, conectada a MongoDB Atlas.
 - 🌐 Vercel: Aplicación desplegada
 
 📦 Tecnologías Utilizadas
+---
 - Next.js
 
 - TypeScript
@@ -68,6 +71,7 @@ La aplicación fue desplegada exitosamente en Vercel, conectada a MongoDB Atlas.
 - GitHub
 
 ✅ Estado del Proyecto
+---
 ✔️ Aplicación funcionando con autenticación y conexión a MongoDB.
 
 ✔️ Validaciones implementadas en el backend.
