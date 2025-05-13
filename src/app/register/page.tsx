@@ -8,100 +8,134 @@ function RegisterPage() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
+  // Función que se ejecuta al enviar el formulario
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevenir el comportamiento por defecto del formulario (recargar la página)
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(e.currentTarget); // Obtener los datos del formulario
+    const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirmPassword") as string;
+
+    // Validación: Contraseñas deben coincidir
+    if (password !== confirmPassword) {
+      setError("❌ Las contraseñas no coinciden.");
+      setMessage("");
+      return;
+    }
 
     try {
+      // Llamada a la API para registrar el usuario
       const res = await axios.post("/api/auth/singup", {
         email: formData.get("email"),
-        password: formData.get("password"),
+        password: password,
         fullname: formData.get("fullname"),
       });
 
       console.log(res);
-      setMessage("✅ Usuario registrado exitosamente.");
-      setError(""); // Limpiar mensaje de error si existía
+      setMessage("✅ Usuario registrado exitosamente."); // Mostrar mensaje de éxito
+      setError(""); // Limpiar error anterior
     } catch (err) {
       console.log(err);
-      setError("❌ Ocurrió un error al registrar el usuario.");
-      setMessage(""); // Limpiar mensaje de éxito si existía
+      setError("❌ Ocurrió un error al registrar el usuario."); // Mostrar mensaje de error
+      setMessage(""); // Limpiar mensaje de éxito
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-gray-900 rounded-lg shadow-md">
-      {/* Mensajes dinámicos */}
-      {message && (
-        <div className="mb-4 text-green-400 font-medium text-center bg-green-800/30 py-2 px-4 rounded">
-          {message}
-        </div>
-      )}
-      {error && (
-        <div className="mb-4 text-red-400 font-medium text-center bg-red-800/30 py-2 px-4 rounded">
-          {error}
-        </div>
-      )}
+    // Contenedor principal centrado con fondo degradado
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-800 to-gray-900 px-4">
+      {/* Caja blanca con sombra para el formulario */}
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-2xl">
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <h1 className="text-2xl font-bold text-white mb-4">Signup</h1>
+        {/* Título */}
+        <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Crear Cuenta</h1>
 
-        <div>
-          <label htmlFor="fullname" className="text-white block mb-1">Full Name</label>
-          <input
-            type="text"
-            id="fullname"
-            name="fullname"
-            placeholder="John Doe"
-            className="bg-zinc-800 text-white px-4 py-2 block w-full rounded"
-            required
-          />
-        </div>
+        {/* Mensaje de éxito */}
+        {message && (
+          <div className="mb-4 text-green-600 bg-green-100 border border-green-300 rounded p-3 text-center">
+            {message}
+          </div>
+        )}
 
-        <div>
-          <label htmlFor="email" className="text-white block mb-1">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="someemail@mail.com"
-            className="bg-zinc-800 text-white px-4 py-2 block w-full rounded"
-            required
-          />
-        </div>
+        {/* Mensaje de error */}
+        {error && (
+          <div className="mb-4 text-red-600 bg-red-100 border border-red-300 rounded p-3 text-center">
+            {error}
+          </div>
+        )}
 
-        <div>
-          <label htmlFor="password" className="text-white block mb-1">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="******"
-            className="bg-zinc-800 text-white px-4 py-2 block w-full rounded"
-            required
-          />
-        </div>
+        {/* Formulario de registro */}
+        <form onSubmit={handleSubmit} className="space-y-4">
 
-        <div>
-          <label htmlFor="confirmPassword" className="text-white block mb-1">Confirm Password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="******"
-            className="bg-zinc-800 text-white px-4 py-2 block w-full rounded"
-            required
-          />
-        </div>
+          {/* Campo: Nombre completo */}
+          <div>
+            <label htmlFor="fullname" className="block text-sm font-medium text-gray-700">
+              Nombre completo
+            </label>
+            <input
+              type="text"
+              id="fullname"
+              name="fullname"
+              placeholder="Juan Pérez"
+              className="mt-1 w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800"
+              required
+            />
+          </div>
 
-        <button
-          type="submit"
-          className="bg-indigo-500 px-4 py-2 text-white rounded w-full hover:bg-indigo-600 transition"
-        >
-          Register
-        </button>
-      </form>
+          {/* Campo: Email */}
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Correo electrónico
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="correo@ejemplo.com"
+              className="mt-1 w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800"
+              required
+            />
+          </div>
+
+          {/* Campo: Contraseña */}
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              Contraseña
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="********"
+              className="mt-1 w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800"
+              required
+            />
+          </div>
+
+          {/* Campo: Confirmar contraseña */}
+          <div>
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+              Confirmar contraseña
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="********"
+              className="mt-1 w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800"
+              required
+            />
+          </div>
+
+          {/* Botón de envío */}
+          <button
+            type="submit"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+          >
+            Registrarse
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
